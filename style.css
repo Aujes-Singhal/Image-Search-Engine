@@ -1,28 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --navy: #0a1e6f;
+  --navy-light: #1a3190;
+  --navy-faded: rgba(10, 30, 111, 0.12);
+  --accent: #e8a020;
+  --white: #ffffff;
+  --off-white: #f7f8fc;
+  --text-dark: #111827;
+  --text-muted: #6b7280;
+  --shadow-soft: 0 4px 24px rgba(10, 30, 111, 0.1);
+  --shadow-card: 0 8px 40px rgba(0, 0, 0, 0.12);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 32px;
+  --radius-pill: 100px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--off-white);
+  color: var(--text-dark);
   width: 100%;
-  height: 100%;
+  min-height: 100%;
 }
 
+/* ─── Search Hero ─── */
 .search-area {
   width: 100%;
-  height: 400px;
+  height: 480px;
   background-image: url("5.avif");
-  background-size: 100% 100%;
+  background-size: cover;
+  background-position: center;
   position: relative;
+  overflow: hidden;
 }
 
-.black {
+.search-area::before {
+  content: '';
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.3);
-  width: 100%;
-  height: 100%;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(5, 15, 60, 0.72) 0%,
+    rgba(10, 30, 111, 0.45) 60%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  z-index: 1;
+}
+
+/* keep legacy .black class working if still in HTML */
+.black {
+  display: none;
 }
 
 .content {
@@ -34,169 +70,308 @@ body {
   flex-direction: column;
   position: relative;
   z-index: 2;
-  gap: 20px;
+  gap: 14px;
+  padding: 0 20px;
+  animation: fadeUp 0.8s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .content h1 {
-  color: white;
-  font-size: 4vw;
+  color: var(--white);
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-align: center;
+  line-height: 1.15;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.3);
 }
 
 .content p {
-  color: white;
-  font-size: 2.3vw;
+  color: rgba(255,255,255,0.82);
+  font-size: clamp(0.95rem, 2vw, 1.25rem);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  text-align: center;
+  max-width: 520px;
 }
 
+/* ─── Search Box ─── */
 .search-box {
-  width: 60%;
-  height: 15%;
-  background-color: white;
-  border-radius: 30px;
+  width: min(62%, 680px);
+  height: 60px;
+  background-color: var(--white);
+  border-radius: var(--radius-pill);
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.15);
+  transition: var(--transition);
+}
+
+.search-box:focus-within {
+  box-shadow: 0 8px 48px rgba(0,0,0,0.35), 0 0 0 3px rgba(232,160,32,0.5);
 }
 
 .search-box input {
-  width: 80%;
+  flex: 1;
   height: 100%;
   border: none;
   outline: none;
-  padding: 20px;
-  font-size: 20px;
+  padding: 0 24px;
+  font-size: 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  color: var(--text-dark);
+  background: transparent;
+}
+
+.search-box input::placeholder {
+  color: var(--text-muted);
 }
 
 .btn {
-  width: 20%;
-  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: right;
-  padding-right: 10px;
+  justify-content: center;
+  padding-right: 8px;
+  flex-shrink: 0;
 }
 
 .btn button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  background-color: rgb(10, 30, 111);
+  background-color: var(--navy);
   border: none;
-  transition: all 0.2s;
   cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 2px 12px rgba(10, 30, 111, 0.4);
 }
 
-.btn button:hover{
-    background-color: rgba(10, 30, 111, 0.566);
+.btn button:hover {
+  background-color: var(--navy-light);
+  transform: scale(1.08);
+  box-shadow: 0 4px 20px rgba(10, 30, 111, 0.55);
 }
 
-.image-gallery{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 20px;
-    padding-bottom: 40px;
+.btn button:active {
+  transform: scale(0.97);
 }
 
-.image-gallery .images{
-    columns: 5 300px ;
-    max-width: 95%;
-    margin-top: 20px;
+/* ─── Gallery ─── */
+.image-gallery {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  padding: 40px 0 60px;
 }
 
-.image{
-    overflow: hidden;
-    margin-bottom: 10px;
-    list-style: none;
-    position: relative;
-    cursor: pointer;
+.image-gallery .images {
+  columns: 5 260px;
+  max-width: 96%;
+  margin-top: 16px;
+  gap: 14px;
 }
 
-.photo{
-    width: 100%;
-    /* height: 100%; */
-    transition: all 0.5s;
+.image {
+  overflow: hidden;
+  margin-bottom: 14px;
+  list-style: none;
+  position: relative;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  background: #e5e7eb;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
 }
 
-.photo:hover{
-    scale:110%;
+.image:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
 }
 
-.image .details{
-    position: absolute;
-    bottom: -100px;
-    width: 100%;
-    height: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: linear-gradient(to top,black,transparent);
-    padding: 20px;
-    color: white;
-    transition: all 0.3s;
+.photo {
+  width: 100%;
+  display: block;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--radius-md);
 }
 
-.image:hover .details{
+.image:hover .photo {
+  transform: scale(1.06);
+}
+
+/* ─── Card Overlay ─── */
+.image .details {
+  position: absolute;
+  bottom: -80px;
+  left: 0;
+  right: 0;
+  padding: 20px 16px 14px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  background: linear-gradient(to top, rgba(5,10,40,0.82) 0%, transparent 100%);
+  color: var(--white);
+  transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.image:hover .details {
   bottom: 0;
 }
 
-.details .user{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+.details .user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
-.download img{
-    padding: 10px;
-    background-color: rgb(10,30,111);
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s;
+.details .user img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.5);
+  object-fit: cover;
 }
 
-.download .img:hover{
-    background-color: rgb(10,30,111,0.566);
-}
-
-#load{
-  width: 100px;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: rgb(10, 30, 111);
-  border: none;
-  transition: all 0.2s;
+/* ─── Download Button ─── */
+.download img {
+  padding: 8px;
+  background-color: var(--navy);
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  color: white;
-  font-size: 20px;
+  transition: var(--transition);
+  display: block;
+}
+
+.download img:hover {
+  background-color: var(--navy-light);
+  transform: scale(1.1);
+}
+
+/* ─── Load More ─── */
+#load {
+  padding: 14px 40px;
+  border-radius: var(--radius-pill);
+  background-color: var(--navy);
+  border: none;
+  cursor: pointer;
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
   display: none;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
 }
 
-#load:hover{
-  background-color: rgba(10, 30, 111, 0.566);
+#load::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.12) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
 }
 
-@media (max-width:800px){
-  .content h1{
-    font-size:5vw
+#load:hover::after {
+  transform: translateX(100%);
+}
+
+#load:hover {
+  background-color: var(--navy-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(10, 30, 111, 0.35);
+}
+
+#load:active {
+  transform: translateY(0);
+}
+
+/* ─── Gallery Label ─── */
+.image-gallery > h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  color: var(--text-dark);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.image-gallery > p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--off-white);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(10, 30, 111, 0.25);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--navy);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 800px) {
+  .search-area {
+    height: 420px;
   }
-  .content p{
-    color:white;
-    font-size:3vw;
+
+  .content h1 {
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
   }
-  .search-box{
-    width:80%;
-    height:10%;
+
+  .content p {
+    font-size: clamp(0.85rem, 3vw, 1rem);
   }
-  .btn button{
-    width:35px;
-    height:35px;
+
+  .search-box {
+    width: 88%;
+    height: 54px;
   }
-  .btn button img{
-    width:15px
+
+  .btn button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .btn button img {
+    width: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-box {
+    width: 95%;
+    height: 50px;
+  }
+
+  .image-gallery .images {
+    columns: 2 140px;
   }
 }
